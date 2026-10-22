@@ -1,0 +1,39 @@
+numpy
+pandas
+scipy
+scikit-learn
+h5py
+tqdm
+pyyaml
+
+anndata
+scanpy
+matplotlib
+seaborn
+
+biopython
+
+# Core ML
+torch
+
+# RNA embeddings (optional unless you regenerate embeddings)
+scimilarity
+
+# DNA backbone
+borzoi-pytorch
+
+# Optional experiment logging
+wandb
+
+# Optional (used by some paths in PModule; required if you enable LoRA)
+peft
+
+# Optional GPU acceleration (Flashzoi / flash-attn). Often needs a CUDA-enabled build environment.
+# flash-attn
+
+# OT solver is an external dependency (HiRef) and is not installed via pip here.
+# Provide `HIREF_SRC=/path/to/HiRef/src` so that `import HR_OT` works.
+
+# Optional: re-export the README figures (scripts/export_paper_figures.py)
+# pymupdf
+# pillow

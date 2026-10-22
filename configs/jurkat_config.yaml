@@ -1,0 +1,24 @@
+model:
+  data_name: "jurkat"
+  type: "full-model"
+  embedding_dim: 128
+  cond_dim: 128
+  num_layers: 1
+  num_heads: 8
+  hidden_dim: 128
+  DNA_embed_dim: 1536
+  T_train: 1000
+train:
+  batch_size: 128
+  num_epochs: 50
+  lr: 0.0001
+  weight_decay: 0.01
+  loss_weight: 1
+IO:
+  root_dir: '${DATA_ROOT}'
+  idx_root: '${DATA_ROOT}/ot_ids/line_specific'
+  h5_suffix: '.X_scimilarity.h5'
+  idx_train_suffix: '_ot_match.trainsub.idx.csv'
+  idx_val_suffix: '_ot_match.valsub.idx.csv'
+  idx_test_suffix: '_ot_match.test.idx.csv'
+  dna_cache_dir: '${OUTPUT_ROOT}/dna_cache'

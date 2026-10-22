@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# Run outputs and data written inside the repo by the default paths
+/outputs/
+/data/
+wandb/
+*.pt
+*.h5ad

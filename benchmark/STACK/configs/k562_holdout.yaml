@@ -1,0 +1,36 @@
+# STACK training config — hold out K562, train on Jurkat + RPE1
+# filter_organism=false because data is already preprocessed (no organism column needed)
+# __STACK_DIR__ is substituted at runtime by 02_train_stack.sh
+
+dataset_configs:
+  - "__STACK_DIR__/output/data/k562_holdout/combined_train_dir:false"
+
+genelist_path: "__STACK_DIR__/output/data/k562_holdout/hvg.pkl"
+
+save_dir: "__STACK_DIR__/output/checkpoints/k562_holdout"
+
+# Model architecture
+n_hidden: 100
+token_dim: 8
+n_layers: 6
+n_heads: 8
+dropout: 0.1
+mask_rate_min: 0.1
+mask_rate_max: 0.8
+
+# Training
+max_epochs: 20
+sample_size: 128
+batch_size: 32
+learning_rate: 0.0001
+weight_decay: 0.003
+num_workers: 4
+gpus: 1
+
+# Scheduler
+scheduler: cosine
+scheduler_T_max: 20
+scheduler_warmup_epochs: 1
+
+# Early stopping
+early_stopping_patience: 5
