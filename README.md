@@ -1,11 +1,22 @@
 # STRAND: Sequence-Conditioned Transport for Single-Cell Perturbations
 
+**Authors**
+* Boyang Fu
+* Sameer Gabbita
+* George Dasoulas
+* Xiang Lin
+* Shanghua Gao
+* Xiaorui Su
+* Soumya Ghosh
+* Marinka Zitnik
+
+[Preprint](https://arxiv.org/abs/2602.10156) | [Website](https://zitniklab.hms.harvard.edu/STRAND/)
+
+*Advances in Neural Information Processing Systems (NeurIPS), 2026*
+
 STRAND predicts single-cell transcriptional responses by conditioning on the regulatory DNA
 sequence at the perturbed locus rather than on a gene identifier, so perturbations that target
 different genomic sites within the same gene can receive different predicted responses.
-
-Boyang Fu, Sameer Gabbita, George Dasoulas, Xiang Lin, Shanghua Gao, Xiaorui Su, Soumya Ghosh, Marinka Zitnik
-· *Advances in Neural Information Processing Systems (NeurIPS), 2026*
 
 ## Why sequence conditioning
 
