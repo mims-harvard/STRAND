@@ -8,12 +8,12 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Schibsted+Grotesk:wght@600;700;800&display=swap">
 <style>
 :root {
-  /* Direction: a genome-browser instrument on warm lab paper. Data sits on white panels, the
-     schematic on a tinted stage; square marks only where they stand for bins, cells or genes,
-     and one stepped-corner frame marks every selection. */
-  --paper: #FAF8F3;
+  /* Direction: a genome-browser instrument on white paper, in the format of the lab's project
+     pages. Data sits in ruled panels, the schematic on a tinted stage; square marks only where
+     they stand for bins, cells or genes, and one stepped-corner frame marks every selection. */
+  --paper: #FFFFFF;
   --surface: #FFFFFF;
-  --wash: #F0EEE7;
+  --wash: #F1F3F3;
   --scene: #EAF2EF;
   --scene-line: #DDE9E4;
   --scene-px: #D2E2DC;
@@ -25,12 +25,13 @@
   --nucleus-2: #8797A2;
   --nucleus-rim: #2A4550;
   --up: #3F8F4F;
+  --up-ink: #2E7D3E;
   --down: #BE3445;
   --ink: #1B2C33;
   --ink-2: #44555C;
   --ink-3: #5F6F76;
-  --rule: #E3E0D7;
-  --rule-2: #C3C0B5;
+  --rule: #E2E6E6;
+  --rule-2: #C4CBCC;
   --strand: #2C8091;
   --strand-ink: #1F6676;
   --strand-wash: #E1EEF0;
@@ -73,20 +74,21 @@ button { font: inherit; color: inherit; }
 .band {
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
-  padding-block: 64px;
+  padding-block: 40px;
 }
+main > .band + .band { border-top: 1px solid var(--rule); }
 .wrap { max-width: 1200px; margin-inline: auto; }
 section[id] { scroll-margin-top: calc(var(--nav-h) + env(safe-area-inset-top, 0px)); }
 @media (min-width: 768px) {
   .band {
     padding-left: max(32px, env(safe-area-inset-left, 0px));
     padding-right: max(32px, env(safe-area-inset-right, 0px));
-    padding-block: 96px;
+    padding-block: 56px;
   }
 }
-.q { max-width: 28ch; margin-bottom: 32px; font-weight: 700; font-size: clamp(28px, 3.4vw, 40px); line-height: 1.1; letter-spacing: -0.02em; }
-.sub { margin: -20px 0 28px; font-size: 15px; color: var(--ink-3); }
-.vq { margin: 0 0 16px; font-size: 19px; font-weight: 600; letter-spacing: -0.01em; }
+.q { max-width: 46ch; margin-bottom: 12px; font-weight: 700; font-size: clamp(26px, 2.6vw, 32px); line-height: 1.15; letter-spacing: -0.015em; }
+.intro { max-width: 72ch; margin-bottom: 28px; color: var(--ink-2); }
+.vq { margin: 0 0 14px; font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
 .src { margin-top: 12px; font-size: 13px; color: var(--ink-3); }
 
 /* Navigation */
@@ -181,7 +183,7 @@ svg.fig { display: block; width: 100%; overflow: visible; }
 .t-2 { fill: var(--ink-2); }
 .t-ink { fill: var(--ink); }
 .t-b { font-weight: 600; }
-.t-d { font-family: var(--font-data); }
+.t-d { font-variant-numeric: tabular-nums; }
 .t-gene { font-style: italic; fill: var(--ink); }
 .gl { stroke: var(--wash); stroke-width: 1; shape-rendering: crispEdges; }
 .gene-mark { stroke: var(--ink-3); stroke-width: 1; stroke-dasharray: 3 3; shape-rendering: crispEdges; }
@@ -239,16 +241,19 @@ svg.fig { display: block; width: 100%; overflow: visible; }
 .whisker { stroke-width: 1.5; }
 
 /* Hero */
-.hero { border-top: 0; padding-block: 40px 80px; }
-.hero-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: center; }
-@media (max-width: 1023px) { .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 40px; } }
+.hero { padding-block: 40px 48px; }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 48px; align-items: start; }
+@media (max-width: 1023px) { .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; } }
 .eyebrow { margin-bottom: 16px; font-weight: 500; font-size: 15px; color: var(--strand-ink); }
-.hero h1 { max-width: 12ch; font-weight: 700; font-size: clamp(40px, 5.4vw, 68px); line-height: 1.02; letter-spacing: -0.03em; }
-.lead { max-width: 30em; margin-top: 20px; font-size: 19px; line-height: 1.5; color: var(--ink-2); }
-.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
-.byline { max-width: 36em; margin-top: 28px; font-size: 14px; line-height: 1.6; color: var(--ink-3); }
-.byline b { font-weight: 500; color: var(--ink-2); }
+.hero h1 { max-width: 34ch; font-weight: 700; font-size: clamp(30px, 3.2vw, 44px); line-height: 1.1; letter-spacing: -0.02em; }
+.authors-list { margin-top: 0; font-size: 16px; line-height: 1.55; }
+.affil { margin-top: 6px; font-size: 13.5px; line-height: 1.5; color: var(--ink-3); }
+.authors-list sup, .affil sup { font-size: 0.68em; line-height: 0; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+.actions .btn { min-width: 84px; }
+.lead { max-width: 40em; margin-top: 24px; line-height: 1.6; color: var(--ink-2); }
 .hero-fig { margin: 0; }
+.hero .hero-grid { margin-top: 20px; }
 .concept-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin-top: 4px; }
 .acts { display: flex; flex-wrap: wrap; }
 .acts button {
@@ -259,9 +264,12 @@ svg.fig { display: block; width: 100%; overflow: visible; }
 .acts button[aria-current="step"] { color: var(--ink); border-top-color: var(--strand); }
 .concept-ctrl { display: flex; gap: 8px; padding-top: 8px; }
 .caption { margin-top: 8px; font-size: 13px; color: var(--ink-3); }
+.word-up { color: var(--up-ink); font-weight: 600; }
+.word-down { color: var(--down); font-weight: 600; }
 
 /* Explorer */
 .case-body { display: grid; gap: 16px; }
+.case-text { max-width: 76ch; color: var(--ink-2); }
 .tss-grid { --lab: 196px; display: grid; grid-template-columns: minmax(0, 3fr) minmax(220px, 1fr); gap: 24px; align-items: start; }
 @media (max-width: 860px) { .tss-grid { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 560px) { .tss-grid { --lab: 144px; } }
@@ -274,21 +282,21 @@ svg.fig { display: block; width: 100%; overflow: visible; }
 .tss-row:hover { background: var(--wash); }
 .tss-row[aria-checked="true"] { border-color: var(--ink); background: var(--surface); }
 .tss-name { font-size: 14px; line-height: 1.25; }
-.tss-name b { font-family: var(--font-data); font-weight: 500; }
+.tss-name b { font-weight: 600; }
 .tss-name span { display: block; font-size: 12.5px; color: var(--ink-3); }
 .tss-bar { position: relative; height: 20px; margin-right: 60px; }
 .tss-bar i { position: absolute; left: 0; top: 2px; bottom: 2px; background: var(--base); }
 .tss-row[aria-checked="true"] .tss-bar i { background: var(--strand); }
-.tss-bar em { position: absolute; top: 0; font-style: normal; font-family: var(--font-data); font-size: 13px; line-height: 20px; padding-left: 8px; }
+.tss-bar em { position: absolute; top: 0; font-style: normal; font-size: 13px; line-height: 20px; padding-left: 8px; }
 .tss-axis { position: relative; height: 22px; margin-left: calc(var(--lab) + 21px); margin-right: 69px; border-top: 1px solid var(--rule-2); font-size: 12px; color: var(--ink-3); }
 .tss-axis span { position: absolute; top: 3px; transform: translateX(-50%); }
 .readout { display: grid; gap: 4px; align-content: start; padding: 4px 0 4px 20px; border-left: 1px solid var(--rule); }
 @media (max-width: 960px) { .bm-grid .readout { padding: 16px 0 0; border-left: 0; border-top: 1px solid var(--rule); } }
 @media (max-width: 860px) { .tss-grid .readout { padding: 16px 0 0; border-left: 0; border-top: 1px solid var(--rule); } }
 .readout .k { font-size: 13px; color: var(--ink-3); }
-.readout .v { font-family: var(--font-data); font-size: 15px; }
+.readout .v { font-size: 15px; }
 .readout .vt { font-size: 15px; }
-.readout .big { font-family: var(--font-data); font-size: 28px; font-weight: 500; line-height: 1.2; }
+.readout .big { font-family: var(--font-display); font-size: 30px; font-weight: 600; line-height: 1.2; }
 .readout hr { width: 100%; margin: 8px 0; border: 0; border-top: 1px solid var(--rule); }
 .scan-head { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px 20px; }
 .scan-head .field { flex: 1 1 220px; max-width: 360px; }
@@ -300,11 +308,11 @@ svg.fig { display: block; width: 100%; overflow: visible; }
 @media (max-width: 760px) { .sample { grid-template-columns: minmax(0, 1fr); } }
 .kv { display: grid; grid-template-columns: max-content minmax(0, 1fr); align-content: start; gap: 4px 14px; margin: 0; font-size: 14px; }
 .kv dt { color: var(--ink-3); }
-.kv dd { margin: 0; font-family: var(--font-data); font-size: 13.5px; overflow-wrap: anywhere; }
+.kv dd { margin: 0; font-size: 14px; overflow-wrap: anywhere; }
 .vals { width: 100%; border-collapse: collapse; font-size: 14px; }
 .vals th, .vals td { padding: 6px 0; border-bottom: 1px solid var(--rule); text-align: left; }
 .vals thead th { font-weight: 400; font-size: 13px; color: var(--ink-3); }
-.vals td { font-family: var(--font-data); font-size: 13.5px; text-align: right; }
+.vals td { font-size: 14px; text-align: right; }
 .vals th + th { text-align: right; }
 .vals tbody th { font-weight: 600; white-space: nowrap; }
 .vals .glyph { margin-right: 6px; vertical-align: -1px; }
@@ -326,13 +334,13 @@ svg.fig { display: block; width: 100%; overflow: visible; }
 .bm-table th, .bm-table td { padding: 8px 10px; border-bottom: 1px solid var(--rule); text-align: right; white-space: nowrap; }
 .bm-table th:first-child, .bm-table td:first-child { text-align: left; }
 .bm-table thead th { font-weight: 500; font-size: 13px; color: var(--ink-3); }
-.bm-table td { font-family: var(--font-data); font-size: 13px; }
+.bm-table td { font-size: 13.5px; }
 .bm-table tr.us td { color: var(--strand-ink); font-weight: 500; }
 .bm-table td.na { color: var(--ink-3); }
 .copy-row { display: flex; justify-content: flex-end; margin-top: 8px; }
 
 /* Methods */
-.arch { padding: 16px; margin-bottom: 40px; }
+.arch { padding: 16px; margin-bottom: 32px; }
 .mod rect.box { fill: var(--surface); stroke: var(--ink); stroke-width: 1.25; }
 .mod.frozen rect.box { fill: url(#hatch); }
 .mod.io rect.box { fill: var(--wash); stroke: var(--rule-2); }
@@ -345,11 +353,11 @@ svg.fig { display: block; width: 100%; overflow: visible; }
 
 /* Agent preview */
 .flow-steps { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; margin: 0; padding: 0; list-style: none; }
-.flow-steps li { position: relative; display: grid; gap: 4px; align-content: start; padding: 14px 18px 14px 0; border-top: 2px solid var(--ink); }
+.flow-steps li { position: relative; display: grid; gap: 6px; align-content: start; padding: 14px 20px 4px 0; border-top: 2px solid var(--ink); }
 .flow-steps li::after { content: ""; position: absolute; top: -7px; right: 10px; border: 6px solid transparent; border-left-color: var(--ink); border-right: 0; }
 .flow-steps li:last-child::after { display: none; }
 .flow-steps b { font-family: var(--font-display); font-weight: 700; font-size: 17px; }
-.flow-steps span { font-size: 14px; color: var(--ink-3); }
+.flow-steps span { font-size: 14.5px; line-height: 1.5; color: var(--ink-2); }
 @media (max-width: 860px) {
   .flow-steps { grid-template-columns: minmax(0, 1fr); }
   .flow-steps li { padding: 12px 0 12px 18px; border-top: 0; border-left: 2px solid var(--ink); }
@@ -357,20 +365,25 @@ svg.fig { display: block; width: 100%; overflow: visible; }
 }
 
 /* Resources */
-.res-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-bottom: 40px; }
-@media (max-width: 860px) { .res-grid { grid-template-columns: minmax(0, 1fr); } }
-.res-grid > div { display: grid; gap: 6px; align-content: start; padding-top: 14px; border-top: 1px solid var(--ink); }
-.res-grid h3 { font-size: 18px; font-weight: 700; }
-.res-grid p { font-size: 15px; color: var(--ink-2); }
-.pending { font-size: 15px; color: var(--ink-3); }
-.cite-row { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 32px; align-items: start; }
-@media (max-width: 860px) { .cite-row { grid-template-columns: minmax(0, 1fr); } }
+.res-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr); gap: 32px 56px; align-items: start; }
+@media (max-width: 860px) { .res-layout { grid-template-columns: minmax(0, 1fr); } }
+.res-list { display: grid; gap: 22px; }
+.res-list > div { display: grid; gap: 4px; align-content: start; }
+.res-list h3 { font-size: 17px; font-weight: 700; }
+.res-list p { font-size: 15px; color: var(--ink-2); }
+.contact { margin-top: 12px; font-size: 14px; color: var(--ink-3); }
+.fn { margin-left: 1px; font-size: 0.7em; line-height: 0; }
+.fn a { text-decoration: none; }
+.fn a:hover { text-decoration: underline; }
+.refs { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--rule); }
+.refs h3 { margin-bottom: 10px; font-size: 17px; font-weight: 700; }
+.refs ol { display: grid; gap: 6px; margin: 0; padding-left: 22px; font-size: 14px; line-height: 1.5; color: var(--ink-2); }
+.refs li { scroll-margin-top: calc(var(--nav-h) + 16px); }
+.refs li:target { background: var(--strand-wash); }
 .cite-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
 .cite-head h3 { font-size: 18px; font-weight: 700; }
-pre.bib { margin: 0; padding: 16px; overflow-x: auto; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--r); font-family: var(--font-data); font-size: 13px; line-height: 1.6; }
-.authors { margin-top: 40px; font-size: 14px; color: var(--ink-3); }
-.authors b { font-weight: 500; color: var(--ink-2); }
-.site-foot { padding-block: 32px 48px; border-top: 1px solid var(--rule); font-size: 14px; color: var(--ink-3); }
+pre.bib { margin: 0; padding: 16px; overflow-x: auto; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--r); font-family: var(--font-data); font-size: 12.5px; line-height: 1.6; }
+.site-foot { padding-block: 28px 40px; border-top: 1px solid var(--rule); font-size: 14px; color: var(--ink-3); }
 .site-foot .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
 </style>
 
@@ -399,15 +412,18 @@ pre.bib { margin: 0; padding: 16px; overflow-x: auto; background: var(--surface)
 
 <main>
   <section id="overview" class="band hero">
-    <div class="wrap hero-grid">
+    <div class="wrap">
+      <h1>STRAND: Sequence&#8209;conditioned transport for single&#8209;cell perturbations</h1>
+      <div class="hero-grid">
       <div>
-        <h1>Predicting single-cell responses from the DNA sequence at the perturbed locus</h1>
-        <p class="lead">Perturbations of the same gene produce different transcriptional responses depending on which locus is targeted, and gene-level models represent all of them with one gene identifier. STRAND conditions on the regulatory DNA sequence and a mask at the target locus, and predicts the perturbed single-cell state by transporting observed control cells under that condition.</p>
+        <p class="authors-list">Boyang Fu<sup>1</sup>, Sameer Gabbita<sup>2</sup>, George Dasoulas<sup>3</sup>, Xiang Lin<sup>1</sup>, Shanghua Gao<sup>1</sup>, Xiaorui Su<sup>1</sup>, Soumya Ghosh<sup>3</sup>, Marinka Zitnik<sup>1,4,5</sup></p>
+        <p class="affil"><sup>1</sup>Harvard Medical School &ensp;<sup>2</sup>Johns Hopkins University &ensp;<sup>3</sup>Merck &amp; Co., Inc. &ensp;<sup>4</sup>Kempner Institute, Harvard University &ensp;<sup>5</sup>Broad Institute of MIT and Harvard<br>NeurIPS 2026</p>
         <div class="actions">
-          <a class="btn btn-primary" href="#explore">Explore a locus</a>
-          <a class="btn btn-quiet" href="#benchmarks">View benchmarks</a>
+          <a class="btn btn-primary" href="https://arxiv.org/abs/2602.10156" target="_blank" rel="noopener">Paper</a>
+          <a class="btn btn-quiet" href="https://github.com/mims-harvard/STRAND" target="_blank" rel="noopener">Code</a>
+          <a class="btn btn-quiet" href="#cite">BibTeX</a>
         </div>
-        <p class="byline"><b>Boyang Fu, Sameer Gabbita, George Dasoulas, Xiang Lin, Shanghua Gao, Xiaorui Su, Soumya Ghosh, Marinka Zitnik</b><br>NeurIPS 2026</p>
+        <p class="lead">Perturbations of the same gene can produce different transcriptional responses depending on the targeted locus, such as an alternative transcription start site or a distal enhancer, yet gene-level models represent these interventions with a single gene identifier. STRAND encodes the regulatory DNA sequence at the target together with a mask over the perturbed positions, and uses this encoding to transport observed control cells to their predicted perturbed state, at 128 bp model resolution within a 524 kb window.</p>
       </div>
       <figure class="hero-fig" aria-labelledby="concept-cap">
         <svg class="fig" id="concept" role="img" aria-label="Concept: a masked site in the DNA context conditions the transport of control cells to a predicted state, read out as control versus predicted expression."></svg>
@@ -422,29 +438,32 @@ pre.bib { margin: 0; padding: 16px; overflow-x: auto; background: var(--surface)
             <button type="button" class="btn btn-quiet" id="concept-play">Pause</button>
           </div>
         </div>
-        <figcaption class="caption" id="concept-cap">STRAND encodes a 524,288 bp window of reference DNA in 128 bp bins together with a mask over the perturbed positions, and the resulting condition guides the transport of control cells to their predicted perturbed state.</figcaption>
+        <figcaption class="caption" id="concept-cap">The animation shows the four steps of one prediction: STRAND reads a 524,288 bp window of reference DNA in 128 bp bins, masks the bins at the target locus, encodes the masked sequence as a perturbation condition, and transports a control cell to its predicted perturbed state. In the expression readout, <span class="word-up">green</span> marks an increase and <span class="word-down">red</span> a decrease relative to the control cell.</figcaption>
       </figure>
+      </div>
     </div>
   </section>
 
   <section id="explore" class="band">
     <div class="wrap">
       <h2 class="q">Predicted responses differ by perturbed locus and by cell line</h2>
+      <p class="intro">Each panel below reports in silico perturbations, in which STRAND masks a window of the reference sequence and predicts the resulting single-cell state.</p>
       <div class="tabs" role="tablist" aria-label="Perturbation exploration scenarios" id="case-tabs"></div>
       <div class="chips" id="case-chips"></div>
       <h3 class="vq" id="case-q"></h3>
 
       <div class="case-body" id="case-tss" hidden>
+        <p class="case-text"><i>FLVCR1</i> produces two functionally distinct isoforms: FLVCR1a mediates heme export at the plasma membrane, whereas FLVCR1b mediates mitochondrial heme export and is required for erythroid differentiation. Experimental silencing of FLVCR1b impairs hemoglobinization and erythroid differentiation in K562 cells (<a href="#ref-1">Chiabrando et al., 2012</a>), consistent with STRAND assigning its alternative transcription start site the highest predicted perturbation impact among five annotated sites (0.683 versus 0.564 for canonical FLVCR1a).</p>
         <div class="tss-grid">
           <div>
-            <p class="axis-title">Each bar is the predicted effect of masking one <i>FLVCR1</i> transcription start site in K562, measured as the energy distance between the predicted perturbed cells and the control cells, so a longer bar means a larger predicted shift in expression. A gene-level model assigns the same identifier to all five.</p>
+            <p class="axis-title">Each score represents the energy distance between predicted perturbed and control cell distributions after masking the corresponding transcription start site region; higher values indicate larger predicted transcriptomic differences.</p>
             <div class="tss-rows" id="tss-rows" role="radiogroup" aria-label="FLVCR1 transcripts"></div>
             <div class="tss-axis" id="tss-axis" aria-hidden="true"></div>
           </div>
           <div class="readout" id="tss-readout" aria-live="polite"></div>
         </div>
         <div class="panel"><svg class="fig" id="tss-track" role="img" aria-label="FLVCR1 locus on chr1 with the five TSS positions to scale"></svg></div>
-        <p class="src">One in silico perturbation per annotated TSS (Table S12, p.31 of the preprint).</p>
+        <p class="src">Values are STRAND predictions for one in silico perturbation at each annotated TSS (Table S12, p.31 of the preprint).</p>
       </div>
 
       <div class="case-body" id="case-scan" hidden>
@@ -452,7 +471,7 @@ pre.bib { margin: 0; padding: 16px; overflow-x: auto; background: var(--surface)
           <label class="field" id="scan-region-field"><span>Element</span><select id="scan-region"></select></label>
           <div class="legend-toggles" id="scan-cells"></div>
           <div class="seg" id="scan-mode" role="group" aria-label="Profile">
-            <button type="button" data-mode="smooth" aria-pressed="true">Smoothed</button>
+            <button type="button" data-mode="smooth" aria-pressed="true">Smoothed profile</button>
             <button type="button" data-mode="raw" aria-pressed="false">Window values</button>
           </div>
         </div>
@@ -487,10 +506,11 @@ pre.bib { margin: 0; padding: 16px; overflow-x: auto; background: var(--surface)
   <section id="benchmarks" class="band">
     <div class="wrap">
       <h2 class="q">STRAND attains the best average rank on few-shot and unseen-gene benchmarks</h2>
+      <p class="intro">The benchmarks compare STRAND with gene-level perturbation models on CRISPRi Perturb-seq screens in K562, Jurkat and RPE1 cells. The three tabs correspond to few-shot prediction with five cells of each test gene in training, prediction for genes held out from training, and transfer to a cell line held out from training.</p>
       <div class="tabs" role="tablist" aria-label="Task" id="bm-tabs">
         <button type="button" role="tab" data-task="few-shot" aria-selected="true">Few-shot</button>
         <button type="button" role="tab" data-task="zero-shot" aria-selected="false">Unseen genes</button>
-        <button type="button" role="tab" data-task="transfer" aria-selected="false">Held-out context</button>
+        <button type="button" role="tab" data-task="transfer" aria-selected="false">Held-out cell line</button>
       </div>
       <h3 class="vq">How does STRAND compare with gene-level baselines?</h3>
       <div class="row" id="bm-controls">
@@ -526,7 +546,8 @@ pre.bib { margin: 0; padding: 16px; overflow-x: auto; background: var(--surface)
 
   <section id="methods" class="band">
     <div class="wrap">
-      <h2 class="q">STRAND predicts perturbed expression by transporting control cells under a sequence condition</h2>
+      <h2 class="q">STRAND predicts perturbed expression by transporting control cells, conditioned on the DNA sequence at the target</h2>
+      <p class="intro">STRAND combines two frozen pretrained encoders with three trainable modules. The Borzoi DNA encoder<sup class="fn"><a href="#ref-2" aria-label="Reference 2">2</a></sup>, in its enhanced Flashzoi version<sup class="fn"><a href="#ref-3" aria-label="Reference 3">3</a></sup>, embeds the 524 kb sequence window in 128 bp bins, and the perturbation module combines these embeddings with the mask into a perturbation condition. The SCimilarity RNA encoder<sup class="fn"><a href="#ref-4" aria-label="Reference 4">4</a></sup> places each control cell in a latent space of cell states, where an I²SB bridge<sup class="fn"><a href="#ref-5" aria-label="Reference 5">5</a></sup>, a learned stochastic path from control to perturbed states, transports the cell according to the perturbation condition. A decoder then predicts the expression of each gene from the transported state.</p>
       <h3 class="vq">How does STRAND work?</h3>
       <div class="panel arch"><svg class="fig" id="arch" role="img" aria-label="STRAND architecture. DNA and mask pass a frozen Borzoi encoder and the learned perturbation module; control cells pass a frozen SCimilarity encoder; a learned I2SB transport and decoder produce predicted expression."></svg></div>
       <h3 class="vq">What does each component contribute?</h3>
@@ -544,20 +565,20 @@ pre.bib { margin: 0; padding: 16px; overflow-x: auto; background: var(--surface)
         <label class="field" style="min-width:220px"><span>Metric</span><select id="ab-metric"></select></label>
       </div>
       <div class="panel bm-plot"><svg class="fig" id="ab-chart" role="img"></svg></div>
-      <p class="src">Each variant is retrained with one module replaced and the rest of the model, the data splits and the training protocol held fixed: the perturbation module becomes fixed average-pooled DNA embeddings, and the latent transport module becomes a deterministic predictor on the control and DNA embeddings. Means over test perturbations (Table S10, p.27 of the preprint).</p>
+      <p class="src">Each variant is retrained with one module replaced and all other components and losses held fixed. In the first variant, the perturbation module is replaced by DNA embeddings that are averaged over the window and kept fixed; in the second, the latent transport module is replaced by a deterministic MLP predictor that takes the control and DNA embeddings as input. Values are means over test perturbations, and average rank is the mean rank of each variant across the seven metrics (Table S10, p.27 of the preprint).</p>
     </div>
   </section>
 
   <section id="agent-preview" class="band">
     <div class="wrap">
-      <h2 class="q">What could follow a predicted peak?</h2>
-      <p class="sub">Future integration preview.</p>
+      <h2 class="q">How can a STRAND scan and published evidence together prioritize candidate regions?</h2>
+      <p class="intro">The workflow below is planned for a future release: a STRAND scan proposes candidate regions, and an expert ranks them against the published evidence.</p>
       <ol class="flow-steps">
-        <li><b>Define query</b><span>Gene, context, region</span></li>
-        <li><b>Call STRAND</b><span>Scan a bounded window</span></li>
-        <li><b>Shortlist</b><span>Candidate peaks</span></li>
-        <li><b>Retrieve evidence</b><span>Sources and conflicts</span></li>
-        <li><b>Prioritize candidates</b><span>Expert review</span></li>
+        <li><b>Define the query</b><span>The user specifies a gene, a cell line and a genomic region.</span></li>
+        <li><b>Run a STRAND scan</b><span>STRAND scores in silico masks across a window of fixed size around the region.</span></li>
+        <li><b>Shortlist peaks</b><span>The scan keeps the intervals with the largest predicted effect as candidate regions.</span></li>
+        <li><b>Retrieve evidence</b><span>A literature search collects the published evidence for each candidate.</span></li>
+        <li><b>Prioritize candidates</b><span>An expert reviews the candidates with their evidence and ranks them.</span></li>
       </ol>
     </div>
   </section>
@@ -565,7 +586,8 @@ pre.bib { margin: 0; padding: 16px; overflow-x: auto; background: var(--surface)
   <section id="resources" class="band">
     <div class="wrap">
       <h2 class="q">Paper and code</h2>
-      <div class="res-grid">
+      <div class="res-layout">
+      <div class="res-list">
         <div>
           <h3>Paper</h3>
           <p>STRAND: Sequence-Conditioned Transport for Single-Cell Perturbations. NeurIPS 2026.</p>
@@ -582,8 +604,7 @@ pre.bib { margin: 0; padding: 16px; overflow-x: auto; background: var(--surface)
           <p><a href="https://pubmed.ncbi.nlm.nih.gov/35688146/" target="_blank" rel="noopener">Replogle et al., Cell 2022</a><br><a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE264667" target="_blank" rel="noopener">Nadig et al. 2025, GEO GSE264667</a></p>
         </div>
       </div>
-      <div class="cite-row">
-        <div>
+        <div id="cite">
           <div class="cite-head"><h3>Citation</h3><button type="button" class="btn btn-quiet" id="copy-bib">Copy BibTeX</button></div>
 <pre class="bib" id="bib"><code>@inproceedings{fu2026strand,
   title     = {{STRAND}: Sequence-Conditioned Transport for Single-Cell Perturbations},
@@ -592,10 +613,19 @@ pre.bib { margin: 0; padding: 16px; overflow-x: auto; background: var(--surface)
   booktitle = {Advances in Neural Information Processing Systems},
   year      = {2026}
 }</code></pre>
+          <p class="contact">Correspondence: Marinka Zitnik, <a href="mailto:marinka@hms.harvard.edu">marinka@hms.harvard.edu</a></p>
         </div>
       </div>
-      <p class="authors"><b>Boyang Fu</b><sup>1</sup>, <b>Sameer Gabbita</b><sup>2</sup>, <b>George Dasoulas</b><sup>3</sup>, <b>Xiang Lin</b><sup>1</sup>, <b>Shanghua Gao</b><sup>1</sup>, <b>Xiaorui Su</b><sup>1</sup>, <b>Soumya Ghosh</b><sup>3</sup>, <b>Marinka Zitnik</b><sup>1,4,5,6</sup><br>
-      <sup>1</sup>Harvard Medical School, Department of Biomedical Informatics; <sup>2</sup>Johns Hopkins University; <sup>3</sup>Merck &amp; Co., Inc.; <sup>4</sup>Kempner Institute, Harvard University; <sup>5</sup>Broad Institute of MIT and Harvard; <sup>6</sup>Harvard Data Science Initiative. Contact: <span class="data">marinka@hms.harvard.edu</span></p>
+      <div class="refs" id="references">
+        <h3>References</h3>
+        <ol>
+          <li id="ref-1">Chiabrando et al. The mitochondrial heme exporter FLVCR1b mediates erythroid differentiation. <i>J Clin Invest</i> 122, 4569–4579 (2012). <a href="https://doi.org/10.1172/JCI62422" target="_blank" rel="noopener">doi:10.1172/JCI62422</a>; <a href="https://pubmed.ncbi.nlm.nih.gov/23187127/" target="_blank" rel="noopener">PubMed 23187127</a></li>
+          <li id="ref-2">Linder et al. Predicting RNA-seq coverage from DNA sequence as a unifying model of gene regulation. <i>Nat Genet</i> 57, 949–961 (2025). <a href="https://doi.org/10.1038/s41588-024-02053-6" target="_blank" rel="noopener">doi:10.1038/s41588-024-02053-6</a></li>
+          <li id="ref-3">Hingerl, Karollus and Gagneur. Flashzoi: an enhanced Borzoi for accelerated genomic analysis. <i>Bioinformatics</i> 41, btaf467 (2025). <a href="https://doi.org/10.1093/bioinformatics/btaf467" target="_blank" rel="noopener">doi:10.1093/bioinformatics/btaf467</a></li>
+          <li id="ref-4">Heimberg et al. A cell atlas foundation model for scalable search of similar human cells. <i>Nature</i> 638, 1085–1094 (2025). <a href="https://doi.org/10.1038/s41586-024-08411-y" target="_blank" rel="noopener">doi:10.1038/s41586-024-08411-y</a></li>
+          <li id="ref-5">Liu et al. I²SB: Image-to-Image Schrödinger Bridge. <i>ICML</i> (2023). <a href="https://arxiv.org/abs/2302.05872" target="_blank" rel="noopener">arXiv:2302.05872</a></li>
+        </ol>
+      </div>
     </div>
   </section>
 </main>
@@ -1039,14 +1069,14 @@ pre.bib { margin: 0; padding: 16px; overflow-x: auto; background: var(--surface)
 
   // ---------- explorer ----------
   const CASES = [
-    { tab: 'loci', tabLabel: 'Same gene, different loci', q: 'Does the site within the gene matter?', items: [
-      { id: 'flvcr1', label: '<span class="gene">FLVCR1</span> in K562', kind: 'tss' },
+    { tab: 'loci', tabLabel: 'Target sites within a gene', q: 'Does the predicted response change with the targeted site within a gene?', items: [
+      { id: 'flvcr1', label: '<span class="gene">FLVCR1</span> in K562', kind: 'tss', q: 'FLVCR1b has the largest predicted perturbation effect in K562' },
       { id: 'gata1', label: '<span class="gene">GATA1</span> elements in K562', kind: 'scan', regions: ['promoter', 'egata1', 'g1he', 'hs2', 'hs1', 'insulator'] },
     ] },
-    { tab: 'contexts', tabLabel: 'Same locus, different contexts', q: 'Does perturbing the same locus give different responses across cell lines?', items: [
-      { id: 'gata1body', label: '<span class="gene">GATA1</span>', kind: 'scan', regions: ['gata1body'], fig: 'assets/figure5_gata1.png', note: 'GATA1 is a transcription factor essential for erythroid differentiation, and only the erythroleukemia line K562 responds sharply, at the TSS.' },
-      { id: 'cd3d', label: '<span class="gene">CD3D</span>', kind: 'scan', regions: ['cd3d'], fig: 'assets/figureS3_cd3d.png', note: 'CD3D encodes part of the T-cell receptor complex, and the T-cell line Jurkat responds most strongly across the locus.' },
-      { id: 'krt18', label: '<span class="gene">KRT18</span>', kind: 'scan', regions: ['krt18'], fig: 'assets/figureS4_krt18.png', note: 'KRT18 is an epithelial keratin, and the epithelial line RPE1 responds most strongly, with its largest peak about 5 kb downstream of the TSS.' },
+    { tab: 'contexts', tabLabel: 'One locus in three cell lines', q: 'Does the predicted response at the same locus differ between cell lines?', items: [
+      { id: 'gata1body', label: '<span class="gene">GATA1</span>', kind: 'scan', regions: ['gata1body'], fig: 'assets/figure5_gata1.png', note: 'GATA1 encodes a transcription factor required for erythroid differentiation, and STRAND predicts a sharp response at the TSS only in the erythroleukemia line K562.' },
+      { id: 'cd3d', label: '<span class="gene">CD3D</span>', kind: 'scan', regions: ['cd3d'], fig: 'assets/figureS3_cd3d.png', note: 'CD3D encodes part of the T-cell receptor complex, and STRAND predicts the strongest response across the locus in the T-cell line Jurkat.' },
+      { id: 'krt18', label: '<span class="gene">KRT18</span>', kind: 'scan', regions: ['krt18'], fig: 'assets/figureS4_krt18.png', note: 'KRT18 encodes an epithelial keratin, and STRAND predicts the strongest response in the epithelial line RPE1, with the largest peak about 5 kb downstream of the TSS.' },
     ] },
   ];
   const ui = { tab: 'loci', item: { loci: 'flvcr1', contexts: 'gata1body' } };
@@ -1081,8 +1111,8 @@ pre.bib { margin: 0; padding: 16px; overflow-x: auto; background: var(--surface)
       b.setAttribute('aria-selected', String(on));
       b.tabIndex = on ? 0 : -1;
     });
-    $('#case-q').textContent = c.q;
     const it = currentItem();
+    $('#case-q').textContent = it.q || c.q;
     const chips = clear($('#case-chips'));
     chips.hidden = c.items.length < 2;
     c.items.forEach(item => {
@@ -1225,8 +1255,8 @@ pre.bib { margin: 0; padding: 16px; overflow-x: auto; background: var(--surface)
     buildChart(r, W, m, narrow);
     $('#scan-slider').max = String(r.offsets.length - 1);
     const ck = DATA.checkpoints.K562;
-    if (r.plotted) $('#scan-src').innerHTML = `Each point is the predicted effect of masking one window, scored by the energy distance between predicted perturbed cells and control cells, and the shaded band is the one drawn around each curve. Curves as published in <a href="${scan.item.fig}" target="_blank" rel="noopener">${r.source} of the preprint</a>.`;
-    else $('#scan-src').textContent = `Each point is one in silico perturbation: a ${2 * HALF + 1} bp mask centred on that position, scored by the energy distance between predicted perturbed cells and control cells, computed with the ${ck.setting} checkpoints and smoothed with a Gaussian filter of 1.5 windows. These element scans are released with the code rather than printed in the preprint.`;
+    if (r.plotted) $('#scan-src').innerHTML = `Each point is the predicted effect of masking one window, scored by the energy distance between predicted perturbed cells and control cells. The curves and their shaded bands are read from the vector figure in <a href="${scan.item.fig}" target="_blank" rel="noopener">${r.source} of the preprint</a>.`;
+    else $('#scan-src').textContent = `Each point is one in silico perturbation, a ${2 * HALF + 1} bp mask centred on that position, scored by the energy distance between predicted perturbed cells and control cells. STRAND computes these scores with the ${ck.setting} checkpoints, and the smoothed profile applies a Gaussian filter with a width of 1.5 windows. These element scans are distributed with the code release.`;
     scanUpdate();
   }
 
@@ -1290,7 +1320,7 @@ pre.bib { margin: 0; padding: 16px; overflow-x: auto; background: var(--surface)
       node('line', { class: v ? 'gl' : 'ax', x1: m.l, x2: W - m.r, y1: py, y2: py }, s);
       text(s, m.l - 8, py + 4, tickText(v), 't', 'end');
     });
-    text(s, m.l, 14, 'Predicted impact: E-distance vs control', 't t-2');
+    text(s, m.l, 14, 'Predicted effect: E-distance from control', 't t-2');
     const span = hi - lo;
     const step = [250, 500, 1000].find(st => ((W - m.l - m.r) / (span / st)) >= (narrow ? 70 : 80)) || 1000;
     const ref = r.plotted ? 0 : TSS;
@@ -1367,7 +1397,7 @@ pre.bib { margin: 0; padding: 16px; overflow-x: auto; background: var(--surface)
     kv.push(['Mask', `${fmtInt(c - HALF)}\u2013${fmtInt(c + HALF)} (${2 * HALF + 1} bp)`], ['Step', `${r.step} bp`], ['Model bin', `${DATA.model.binBp} bp`]);
     if (scan.item.note) kv.push(['Note', scan.item.note]);
     $('#scan-kv').innerHTML = kv.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('');
-    const head = r.plotted ? ['Plotted', 'Band'] : ['Window ± SE', 'Smoothed'];
+    const head = r.plotted ? ['Curve value', 'Band range'] : ['Window value ± SE', 'Smoothed value'];
     $('#scan-vals').innerHTML = `<table class="vals"><thead><tr><th scope="col">Context</th><th scope="col">${head[0]}</th><th scope="col">${head[1]}</th></tr></thead><tbody>${
       visible(r).map(cell => {
         const S = r.series[cell];
@@ -1580,7 +1610,7 @@ pre.bib { margin: 0; padding: 16px; overflow-x: auto; background: var(--surface)
       ? 'Each model is trained and evaluated on one cell line, with five cells per test gene moved into training.'
       : 'Each model is trained without the labels or expression profiles of the test perturbations' + (bm.subset === 'gears' ? ', on the subset of genes GEARS can predict.' : '.');
     const avgScope = t.table === 'Table 2' ? ' Values are averaged over K562, Jurkat and RPE1.' : '';
-    $('#bm-src').textContent = `${setup}${avgScope} Each value is the mean over test perturbations with its standard error, and average rank is the mean rank across the seven metrics (${t.table}, p.${t.page} of the preprint).${printed}`;
+    $('#bm-src').textContent = `${setup}${avgScope} Each value is the mean over test perturbations with its standard error. The seven metrics measure the overall fit of predicted expression (MSE, ΔPearson), the recovery of differentially expressed genes (Dir. Match, Prec.@N, Ov.@N), how specific each predicted effect is to its own perturbation (Discr. Cos), and the energy distance between predicted and observed perturbed cells (E-Dist). Average rank is the mean rank across the seven metrics (${t.table}, p.${t.page} of the preprint).${printed}`;
   }
 
   function bmTable(recs) {
@@ -1684,11 +1714,11 @@ pre.bib { margin: 0; padding: 16px; overflow-x: auto; background: var(--surface)
   const MODS = {
     dna: { name: 'DNA + mask', note: '524,288 bp window', kind: 'io' },
     borzoi: { name: 'Frozen Borzoi', note: 'DNA encoder', kind: 'frozen' },
-    pm: { name: 'Perturbation module', note: 'learns the condition', kind: 'learn', ablate: 'w/o Perturbation Module' },
-    cells: { name: 'Control cells', note: 'observed input', kind: 'io' },
+    pm: { name: 'Perturbation module', note: 'encodes the target', kind: 'learn', ablate: 'w/o Perturbation Module' },
+    cells: { name: 'Control cells', note: 'observed expression', kind: 'io' },
     scim: { name: 'Frozen SCimilarity', note: 'RNA encoder', kind: 'frozen' },
-    i2sb: { name: 'I²SB transport', note: 'learns the bridge', kind: 'learn', ablate: 'w/o Latent Diffusion' },
-    dec: { name: 'Decoder', note: 'learns the effect', kind: 'learn' },
+    i2sb: { name: 'I²SB transport', note: 'maps cell states', kind: 'learn', ablate: 'w/o Latent Diffusion' },
+    dec: { name: 'Decoder', note: 'predicts each gene', kind: 'learn' },
     out: { name: 'Predicted RNA', note: 'expression per gene', kind: 'io' },
   };
   function archBuild() {
