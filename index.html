@@ -299,6 +299,8 @@ svg.fig { display: block; width: 100%; overflow: visible; }
 .readout .v { font-size: 15px; }
 .readout .vt { font-size: 15px; }
 .readout .big { font-family: var(--font-display); font-size: 30px; font-weight: 600; line-height: 1.2; }
+.readout .big .of { margin-left: 3px; font-family: var(--font-body); font-size: 15px; font-weight: 400; color: var(--ink-2); }
+.readout .score { font-size: 13px; line-height: 1.45; color: var(--ink-3); font-variant-numeric: tabular-nums; }
 .readout hr { width: 100%; margin: 8px 0; border: 0; border-top: 1px solid var(--rule); }
 .scan-head { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px 20px; }
 .scan-head .field { flex: 1 1 220px; max-width: 360px; }
@@ -1604,10 +1606,14 @@ pre.bib { margin: 0; padding: 16px; overflow-x: auto; background: var(--surface)
       const pct = M.higher ? (s.mean - best.v.mean) / best.v.mean : (best.v.mean - s.mean) / best.v.mean;
       rel = `<p class="v">${M.higher ? '+' : MINUS}${Math.round(pct * 100)}% vs ${best.label}</p><p class="k">${scope} only</p>`;
     }
-    $('#bm-readout').innerHTML = `<p class="k">STRAND, ${M.label}</p><p class="big">${fmtMetric(s.mean, bm.metric)}</p>
-      ${s.se != null ? `<p class="k">± ${fmtMetric(s.se, bm.metric)} SE</p>` : ''}<hr>
-      <p class="k">Best baseline</p><p class="v">${best.label} ${fmtMetric(best.v.mean, bm.metric)}</p>${rel}
-      <p class="k">Rank among ${ranked.length} methods</p><p class="v">${rank}</p>`;
+    const overall = bm.metric === 'avgrank';
+    const score = overall
+      ? `Average rank ${fmtMetric(s.mean, bm.metric)} across the seven metrics`
+      : `${M.label} ${fmtMetric(s.mean, bm.metric)}${s.se != null ? ` ± ${fmtMetric(s.se, bm.metric)} SE` : ''}`;
+    $('#bm-readout').innerHTML = `<p class="k">${overall ? 'Overall rank of STRAND' : `Rank of STRAND on ${M.label}`}</p>
+      <p class="big">${rank} <span class="of">of ${ranked.length} methods</span></p>
+      <p class="score">${score}</p><hr>
+      <p class="k">Best baseline</p><p class="v">${best.label} ${fmtMetric(best.v.mean, bm.metric)}</p>${rel}`;
     const t = recs[0];
     const printed = M.scale > 1 ? ` ${M.label} is printed ×${M.scale} in the paper.` : '';
     const setup = bm.task === 'few-shot'
