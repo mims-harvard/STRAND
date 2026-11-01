@@ -576,14 +576,14 @@ pre.bib { margin: 0; padding: 16px; overflow-x: auto; background: var(--surface)
 
   <section id="agent-preview" class="band">
     <div class="wrap">
-      <h2 class="q">How can a STRAND scan and published evidence together prioritize candidate regions?</h2>
-      <p class="intro">The workflow below is planned for a future release: a STRAND scan proposes candidate regions, and an expert ranks them against the published evidence.</p>
+      <h2 class="q">Future Direction: STRAND-guided Prioritization of Candidate Perturbation Sites</h2>
+      <p class="intro">We envision combining STRAND's predicted perturbation effects with published experimental findings and genomic annotations to prioritize candidate regions for follow-up experiments.</p>
       <ol class="flow-steps">
-        <li><b>Define the query</b><span>The user specifies a gene, a cell line and a genomic region.</span></li>
-        <li><b>Run a STRAND scan</b><span>STRAND scores in silico masks across a window of fixed size around the region.</span></li>
-        <li><b>Shortlist peaks</b><span>The scan keeps the intervals with the largest predicted effect as candidate regions.</span></li>
-        <li><b>Retrieve evidence</b><span>A literature search collects the published evidence for each candidate.</span></li>
-        <li><b>Prioritize candidates</b><span>An expert reviews the candidates with their evidence and ranks them.</span></li>
+        <li><b>Define the query</b><span>The user specifies the target gene, the cell line and the genomic region to scan.</span></li>
+        <li><b>Run a STRAND scan</b><span>STRAND predicts the perturbation effect of each fixed-width window as the window moves across the selected region.</span></li>
+        <li><b>Shortlist candidate regions</b><span>The scan groups neighboring high-scoring windows into regions and keeps those with the largest predicted perturbation effects.</span></li>
+        <li><b>Retrieve evidence</b><span>For each candidate region, experimental studies, regulatory annotations and results from earlier perturbation screens are collected.</span></li>
+        <li><b>Prioritize candidates</b><span>An expert evaluates STRAND predictions alongside the available biological evidence and ranks candidate regions for further investigation.</span></li>
       </ol>
     </div>
   </section>
